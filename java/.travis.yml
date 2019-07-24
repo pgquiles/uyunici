@@ -1,0 +1,6 @@
+language: java
+install: ant deps
+jdk: openjdk11
+script:
+  ant -f java/manager-build.xml ivy
+  ant -f java/manager-build.xml compile
