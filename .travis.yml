@@ -6,8 +6,9 @@ before_install:
   
 jdk: openjdk11
 script:
-  ant -f java/manager-build.xml ivy
-  ant -f java/manager-build.xml compile
+  - cd java
+  - ant -f manager-build.xml ivy
+  - ant -f manager-build.xml compile
 
 branches:
   only:
