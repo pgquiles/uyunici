@@ -1,5 +1,5 @@
 language: java
-install: ant deps
+dist: bionic
 jdk: openjdk11
 script:
   ant -f java/manager-build.xml ivy
@@ -8,4 +8,3 @@ script:
 branches:
   only:
     - master-sonarcloud
-    
