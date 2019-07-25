@@ -8,6 +8,7 @@ install:
 jdk: openjdk11
 script:
   - cd java
+  - ant -f manager-build.xml init-ivy
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
 

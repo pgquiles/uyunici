@@ -14,7 +14,7 @@
 
   <!-- Upstream-defined properties -->
   <import file="buildconf/build-props.xml" />
-  <import file="buildconf/build-taskdefs.xml" />
+  <import file="buildconf/get-ivy.xml" />
 
   <!-- Other properties -->
   <property name="deploy.host" value="deployhost" />
@@ -43,7 +43,6 @@
   <property name="ssh.command.args" value="${ssh.socket.option} -p ${deploy.port} ${deploy.user}@${deploy.host}"/>
 
   <!-- Taskdefs -->
-  <taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/>
 
   <!-- Paths -->
   <path id="libjars">
