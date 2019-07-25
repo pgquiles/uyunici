@@ -9,6 +9,7 @@ jdk: openjdk11
 script:
   - cd java
   - ant -f manager-build.xml init-ivy
+  - sudo cp ~/.ant/lib/ivy.jar $ANT_HOME/lib
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
 
