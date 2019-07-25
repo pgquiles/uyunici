@@ -4,12 +4,12 @@ dist: bionic
 install: 
   - sudo apt-get update
   - sudo apt-get install -y ant-contrib ivy libservlet-api-java
-  - ant resolve
-  - ant init-ivy
   
 jdk: openjdk11
 script:
   - cd java
+  - ant -f manager-build.xml resolve
+  - ant -f manager-build.xml init-ivy
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
 
