@@ -3,12 +3,12 @@ dist: bionic
 #before_install: ant init-ivy
 install: 
 #  - sudo apt-get update
-  - sudo apt-get install -y ant-contrib ivy libservlet-api-java
+  - sudo apt-get install -y ant-contrib libservlet-api-java
   
 jdk: openjdk11
 script:
   - cd java
-  - export ANT_HOME=/usr/share/java
+#  - export ANT_HOME=/usr/share/java
   - ant -f manager-build.xml resolve
   - ant -f manager-build.xml init-ivy
   - ant -f manager-build.xml ivy
