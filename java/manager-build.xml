@@ -14,7 +14,6 @@
 
   <!-- Upstream-defined properties -->
   <import file="buildconf/build-props.xml" />
-  <import file="buildconf/get-ivy.xml" />
 
   <!-- Other properties -->
   <property name="deploy.host" value="deployhost" />
@@ -54,6 +53,11 @@
   </path>
 
   <!-- Tasks -->
+  <target name="init-ivy" description="Used to install the ivy task jar">
+    <mkdir dir="${user.home}/.ant/lib"/>
+    <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
+  </target>
+  
   <target name="clean" description="Cleans up all generated files">
     <delete dir="${build.dir}" quiet="true">
       <exclude name="classes/**/*" if="precompiled" />
