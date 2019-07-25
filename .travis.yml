@@ -1,22 +1,17 @@
 language: java
 dist: bionic
 #before_install: ant init-ivy
-#install: 
+install: 
 #  - sudo apt-get update
-#  - sudo apt-get install -y ant-contrib libservlet-api-java
-install: java/scripts/getLibraries.sh
+  - sudo apt-get install -y ant-contrib libservlet-api-java
   
 jdk: openjdk11
 script:
   - cd java
-  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.6/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -f manager-build.xml ivy
-  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.6/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -f manager-build.xml compile
-  
-
-#  - ant -f manager-build.xml init-ivy
+  - ant -f manager-build.xml init-ivy
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
-#  - ant -f manager-build.xml ivy
-#  - ant -f manager-build.xml compile
+  - ant -f manager-build.xml ivy
+  - ant -f manager-build.xml compile
 
 branches:
   only:
