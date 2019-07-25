@@ -1,8 +1,9 @@
 language: java
 dist: bionic
-before_install:
+before_install: ant init-ivy
+install: ant resolve
 #  - sudo apt-get update
-  - sudo apt-get install -y ant-contrib ivy
+#  - sudo apt-get install -y ant-contrib ivy libservlet-api-java
   
 jdk: openjdk11
 script:
