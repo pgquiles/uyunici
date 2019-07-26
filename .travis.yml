@@ -24,17 +24,21 @@ before_script:
   - git fetch --unshallow
   - cd java
 
-script:
-  - export JAVA_OPTS="-Xms256m -Xmx2048m"
-  - ant -f manager-build.xml init-ivy
+jobs:
+  include:
+    - stage: "Settings"
+      script: export JAVA_OPTS="-Xms256m -Xmx2048m"
+    - stage: "InitIvy"
+      script: ant -f manager-build.xml init-ivy
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
-  - ant -f manager-build.xml ivy
-  - ant -f manager-build.xml compile
-
-after_success:
-  - export SONAR_SCANNER_OPTS="-Xmx2048m"
-#  - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes -Dsonar.java.libraries=$HOME/.ant/lib/**/*.jar
-  - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes
+    - stage: "Ivy"
+      script: ant -f manager-build.xml ivy
+    - stage: "Compile"
+      script: ant -f manager-build.xml compile
+    - stage: "Sonar-Settings"
+      script: export SONAR_SCANNER_OPTS="-Xmx2048m"
+    - stage: "Sonar-Analysis"
+      script: sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes -Dsonar.java.libraries=$HOME/.ant/lib/**/*.jar
 
 branches:
   only:
