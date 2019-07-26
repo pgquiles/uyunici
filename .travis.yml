@@ -8,10 +8,6 @@ cache:
     $HOME/.ant/lib
   timeout: 900
 
-install: 
-#  - sudo apt-get update
-  - sudo apt-get install -y ant-contrib libservlet-api-java
-  
 jdk: openjdk11
 
 addons:
@@ -20,14 +16,21 @@ addons:
     token:
       secure: "BriWj0JMIehPe4vQexwXq4gOyE7kb+eZGCIDl/srKjZxct/w7pHdCjQ8OfEAEkqop8wtTJZjd2tDNgc49yGmc5FR84bvTiPXyom86eRHFBzmH8rue5k50s/TpkW/dMdqhvcYvEPVfNLq+Hq2IvX0OrWTcfWHDn9UrzmgibRZ+Bsl3zcp1jWguUYNxz2ilQyuny6sLvLl2vIAel8BJ3ONkFWmm6J935hwhW1NV7WDgSake59xsf+otVIqyIOELzn+MJEkMxlguxyYCSRJ0oahcmRUnyD0IwvoiWFwv8QurdceH8Kfe46K+Ub79OdR6SyrIiReI3UGvF3XB5Cw8HxyqXjxNheHX5Vy8eTvnCLXVnQF9ratkGu7xUQN+ZPZM1ET3ygoOVSTArbtoCRfLNQcaYh879AV8m7IXzaCiWt0s/uoeoQi56H8iUCYD3jKqd/8m5j5lxo1busVgdZScageH3Dfjones+rCNIlg91Xq/J+lYPqfAwpL08+ZIpXKYZu6ntmjeG4/whAyKiM4g4Eo/oRBMPUpu2ZE8cbqyLQcMNDU5w2muMUjJrxbX7reS4KKU9Uq6EZ0I54us6MSjeKa5c3hmeHIIF/LHroQKeJoCMo6r4sa8yVsdcXYCKMbFsxJqY0a03ieL6OJpIPiUNkYC8YJ+ztqSsJvWzmZy8Qx6uQ="
 
-script:
+install:
+#  - sudo apt-get update
+  - sudo apt-get install -y ant-contrib libservlet-api-java
+
+before_script:
   - git fetch --unshallow
   - cd java
+
+script:
   - ant -f manager-build.xml init-ivy
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
-  - echo TRAVIS_BUILD_DIR=$TRAVIS_BUILD_DIR
+
+after_success:
   - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes -Dsonar.java.libraries=$HOME/.ant/lib/**/*.jar
 
 branches:
