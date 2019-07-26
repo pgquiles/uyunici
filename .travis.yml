@@ -26,7 +26,8 @@ script:
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
-  - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni
+  - echo TRAVIS_BUILD_DIR=$TRAVIS_BUILD_DIR
+  - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes -Dsonar.java.libraries=$HOME/.ant/lib/**/*.jar
 
 branches:
   only:
