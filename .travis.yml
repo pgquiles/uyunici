@@ -1,6 +1,13 @@
 language: java
 dist: bionic
 #before_install: ant init-ivy
+
+cache:
+  directories:
+    $HOME/.ivy2/cache
+    $HOME/.ant/lib
+  timeout: 900
+
 install: 
 #  - sudo apt-get update
   - sudo apt-get install -y ant-contrib libservlet-api-java
@@ -19,7 +26,7 @@ script:
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
-  - sonar-scanner
+  - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni
 
 branches:
   only:
