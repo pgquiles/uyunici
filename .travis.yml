@@ -2,6 +2,9 @@ language: java
 dist: bionic
 #before_install: ant init-ivy
 
+git:
+  depth: false
+  
 cache:
   directories:
     $HOME/.ivy2/cache
@@ -21,13 +24,15 @@ install:
   - sudo apt-get install -y ant-contrib libservlet-api-java
 
 before_script:
-  - git fetch --unshallow
+#  - git fetch --unshallow
   - cd java
+  - export JAVA_OPTS="-Xms256m -Xmx2048m"
+  - export SONAR_SCANNER_OPTS="-Xmx2048m"
 
 jobs:
   include:
-    - stage: "Settings"
-      script: export JAVA_OPTS="-Xms256m -Xmx2048m"
+#    - stage: "Settings"
+#      script: export JAVA_OPTS="-Xms256m -Xmx2048m"
     - stage: "InitIvy"
       script: ant -f manager-build.xml init-ivy
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
@@ -35,8 +40,8 @@ jobs:
       script: ant -f manager-build.xml ivy
     - stage: "Compile"
       script: ant -f manager-build.xml compile
-    - stage: "Sonar-Settings"
-      script: export SONAR_SCANNER_OPTS="-Xmx2048m"
+#    - stage: "Sonar-Settings"
+#      script: export SONAR_SCANNER_OPTS="-Xmx2048m"
     - stage: "Sonar-Analysis"
       script: sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes -Dsonar.java.libraries=$HOME/.ant/lib/**/*.jar
 
