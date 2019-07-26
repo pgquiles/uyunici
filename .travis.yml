@@ -31,6 +31,7 @@ script:
   - ant -f manager-build.xml compile
 
 after_success:
+  - export SONAR_SCANNER_OPTS="-Xmx2048m"
   - sonar-scanner -Dsonar.projectKey=pgquiles_uyuni -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/java/build/classes -Dsonar.java.libraries=$HOME/.ant/lib/**/*.jar
 
 branches:
