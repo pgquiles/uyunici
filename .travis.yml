@@ -19,6 +19,7 @@ script:
 #  - sudo cp ~/.ant/lib/ivy.jar /usr/share/java/
   - ant -f manager-build.xml ivy
   - ant -f manager-build.xml compile
+  - sonar-scanner
 
 branches:
   only:
